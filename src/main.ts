@@ -10,3 +10,5 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+// ng deploy --base-href=/us-presidents/
