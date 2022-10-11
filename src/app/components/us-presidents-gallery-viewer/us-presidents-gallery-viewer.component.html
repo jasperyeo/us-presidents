@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th>S/No</th>
+      <th>Name</th>
+      <th>Birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let president of presidents">
+      <td>{{ president?.sNo }}</td>
+      <td>{{ president?.name }}</td>
+      <td>{{ president?.birth }}</td>
+    </tr>
+  </tbody>
+</table>
