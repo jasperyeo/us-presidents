@@ -3,14 +3,18 @@
     <tr>
       <th>S/No</th>
       <th>Name</th>
-      <th>Birth</th>
+      <th>Birth - Death</th>
+      <th>Term Start</th>
+      <th>Term End</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let president of presidents">
       <td>{{ president?.sNo }}</td>
       <td>{{ president?.name }}</td>
-      <td>{{ president?.birth }}</td>
+      <td>{{ president?.life }}</td>
+      <td>{{ president?.termStart }}</td>
+      <td>{{ president?.termEnd }}</td>
     </tr>
   </tbody>
 </table>
