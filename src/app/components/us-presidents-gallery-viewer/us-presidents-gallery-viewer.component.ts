@@ -23,12 +23,22 @@ export class UsPresidentsGalleryViewerComponent {
     });
   }
 
+  private extractContent(s: string): string {
+    let span = document.createElement('span');
+    span.innerHTML = s;
+    return span.textContent || span.innerText;
+  };
+
   private _extract(htmlString: string): void {
     const count: number = (htmlString.match(/<th scope="row">/g) || []).length;
     let indexStart: number = htmlString.indexOf('<th scope="row">', 0);
     let indexEnd: number = htmlString.indexOf('</tr>', indexStart);
     for (let i: number = 0; i < count; i++) {
       const rawText: string = htmlString.substring(indexStart, indexEnd);
+      let tdText: string[] | null = rawText.match(/<td.+<\/td>/g);
+      if (tdText) {
+        tdText = tdText.map(td => this.extractContent(td));
+      }
       const nameIndexStart: number = rawText.indexOf('of ', 0);
       const nameIndexEnd: number = rawText.indexOf('"', nameIndexStart + ('of ').length);
       const name: string = rawText.substring(nameIndexStart + ('of ').length, nameIndexEnd);
@@ -46,6 +56,7 @@ export class UsPresidentsGalleryViewerComponent {
       const termEnd: string = rawText.substring(rawText.indexOf('>', termEndIndexStart + ('white-space').length) + 1, termEndIndexEnd);
       this.presidents.push({
         rawText: rawText,
+        textPerCell: tdText,
         sNo: i + 1,
         name: name,
         life: life,
