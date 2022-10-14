@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { UsPresidentsGalleryViewerService } from './us-presidents-gallery-viewer.service';
 
 @Component({
@@ -15,11 +14,10 @@ export class UsPresidentsGalleryViewerComponent {
     this._usPresidentsGalleryViewerService.getWikipediaArticle(this.searchTerm).then((result) => {
       const htmlString: string = result as string;
       this._extract(htmlString);
-     
       console.log(this.presidents);
     })
     .catch(error => {
-
+      console.error('API failed');
     });
   }
 
