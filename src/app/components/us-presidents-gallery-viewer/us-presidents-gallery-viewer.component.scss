@@ -1,13 +1,6 @@
-tbody tr td {
-  white-space: pre;
-}
-
-#bg-flag {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  opacity: .1;
-  z-index: -1;
+.viewer {
+  &__container {
+    background-color: black;
+    overflow: auto;
+  }
 }

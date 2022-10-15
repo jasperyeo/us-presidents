@@ -1,0 +1,26 @@
+<div class="list-viewer__wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>S/No</th>
+        <th>Name</th>
+        <th>Birth - Death</th>
+        <th>Term</th>
+        <th>Party</th>
+        <th>Election</th>
+        <th>Vice President</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let president of data">
+        <td>{{ president?.sNo }}</td>
+        <td>{{ president?.name }}</td>
+        <td>{{ president?.life }}</td>
+        <td>{{ president?.term }}</td>
+        <td>{{ president?.party }}</td>
+        <td>{{ president?.election }}</td>
+        <td>{{ president?.vicePresident }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
