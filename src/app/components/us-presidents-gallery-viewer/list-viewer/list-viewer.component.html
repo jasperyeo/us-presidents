@@ -19,7 +19,14 @@
         <td>{{ president?.name }}</td>
         <td>{{ president?.life }}</td>
         <td>{{ president?.term }}</td>
-        <td>{{ president?.party }}</td>
+        <td>
+          <ng-container *ngFor="let party of president?.party; let i = index">
+            <span class="list-viewer__party" [ngClass]="'list-viewer__party--' + party?.toLowerCase()"></span>{{ party }}
+            <ng-container *ngIf="i !== president?.party?.length - 1">
+              <br><br>
+            </ng-container>
+          </ng-container>
+        </td>
         <td>{{ president?.election }}</td>
         <td>{{ president?.vicePresident }}</td>
       </tr>

@@ -39,7 +39,7 @@ export class UsPresidentsGalleryViewerComponent {
       trText.forEach((tr: string, index: number) => {
         const rawText: string = tr;
         let tdText: string[] | null = rawText.match(/<td[\s\S]*?<\/td>/g);
-        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string = '-', election: string = '-', vicePresident: string = '-', imagePath: string = '';
+        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string[] = [], election: string = '-', vicePresident: string = '-', imagePath: string = '';
         if (tdText) {
           tdText = tdText.map(td => {
             const imagePaths: string[] | null = td.match(/src="[\s\S]*?g"/g);
@@ -52,7 +52,7 @@ export class UsPresidentsGalleryViewerComponent {
           name = tdText[0].substring(0, tdText[0].indexOf('('));
           birthDeath = tdText[0].substring(tdText[0].indexOf('('), tdText[0].indexOf(')') + 1);
           term = tdText[1];
-          party = tdText[2];
+          party = tdText[2].split('\n').filter(party => party && party.length);
           election = tdText[3];
           vicePresident = tdText[4];
         }
