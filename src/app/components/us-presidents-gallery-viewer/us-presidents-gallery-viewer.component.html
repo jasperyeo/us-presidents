@@ -1,28 +1,3 @@
-<video autoplay muted loop id="bg-flag">
-  <source src="../../../assets/videos/bg-flag.mp4" type="video/mp4">
-</video>
-
-<table>
-  <thead>
-    <tr>
-      <th>S/No</th>
-      <th>Name</th>
-      <th>Birth - Death</th>
-      <th>Term</th>
-      <th>Party</th>
-      <th>Election</th>
-      <th>Vice President</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let president of presidents">
-      <td>{{ president?.sNo }}</td>
-      <td>{{ president?.name }}</td>
-      <td>{{ president?.life }}</td>
-      <td>{{ president?.term }}</td>
-      <td>{{ president?.party }}</td>
-      <td>{{ president?.election }}</td>
-      <td>{{ president?.vicePresident }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="viewer__container">
+  <list-viewer [data]="presidents"></list-viewer>
+</div> 

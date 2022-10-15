@@ -1,10 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
+// * {
+//   -webkit-touch-callout: none; /* iOS Safari */
+//     -webkit-user-select: none; /* Safari */
+//      -khtml-user-select: none; /* Konqueror HTML */
+//        -moz-user-select: none; /* Old versions of Firefox */
+//         -ms-user-select: none; /* Internet Explorer/Edge */
+//             user-select: none; /* Non-prefixed version, currently
+//                                   supported by Chrome, Edge, Opera and Firefox */
+// }
 
-html body {
-  background-color: black;
+input, textarea {
+  -webkit-touch-callout: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
-table, tr, td, th {
-  border: 1px solid white;
-  color: white;
+// responsive breakpoints
+$xs-breakpoint: 10em;
+$sm-breakpoint: 20em;
+$md-breakpoint: 47.9375em;
+$lg-breakpoint: 61.9375em;
+$xl-breakpoint: 1em;
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == xs {
+    @media only screen and (max-width: $xs-breakpoint) { @content };
+  }
+  @if $breakpoint == sm {
+    @media only screen and (max-width: $sm-breakpoint) { @content };
+  }
+  @if $breakpoint == md {
+    @media only screen and (max-width: $md-breakpoint) { @content };
+  }
+  @if $breakpoint == lg {
+    @media only screen and (max-width: $lg-breakpoint) { @content };
+  }
+  @if $breakpoint == xl {
+    @media only screen and (max-width: $xl-breakpoint) { @content };
+  }
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  // to define 1rem = 10px
+  font-size: 62.5%;
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+table {
+  font-size: 1.6rem;
 }

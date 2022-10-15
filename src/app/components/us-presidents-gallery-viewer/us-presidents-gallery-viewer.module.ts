@@ -4,17 +4,20 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
 import { UsPresidentsGalleryViewerComponent } from './us-presidents-gallery-viewer.component';
+import { ListViewerComponent } from './list-viewer/list-viewer.component';
 
 @NgModule({
   declarations: [
-    UsPresidentsGalleryViewerComponent
+    UsPresidentsGalleryViewerComponent,
+    ListViewerComponent
   ],
   imports: [
     CommonModule,
     FormsModule
   ],
   exports: [
-    UsPresidentsGalleryViewerComponent
+    UsPresidentsGalleryViewerComponent,
+    ListViewerComponent
   ]
 })
 export class UsPresidentsGalleryViewerModule {}

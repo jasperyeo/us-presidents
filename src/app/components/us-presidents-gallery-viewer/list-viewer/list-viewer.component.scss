@@ -1,0 +1,43 @@
+.list-viewer {
+  &__wrapper {
+    width: 100vw;
+    overflow: auto;
+  }
+}
+
+table {
+  width: fit-content;
+  margin: .8rem auto;
+  border-collapse: collapse;
+
+  thead tr {
+    border: 1px solid white;
+    margin-bottom: 2rem;
+
+    th {
+      white-space: nowrap;
+      color: white;
+      text-align: left;
+      padding: 1.2rem;
+    }
+  }
+
+  tbody tr {
+    border: 1px solid white;
+    cursor: pointer;
+    background-color: rgba(36, 36, 36, 0.5);
+
+    &:hover {
+      background-color: rgba(36, 36, 36, 0.2);
+      td {
+        text-decoration: underline;
+      }
+    }
+
+    td {
+      white-space: pre;
+      color: white;
+      padding: 1.2rem;
+    }
+  }
+}

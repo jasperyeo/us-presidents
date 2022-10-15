@@ -1,0 +1,18 @@
+.app {
+  &__wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    overflow: auto;
+  }
+}
+
+#bg-flag {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+  opacity: .1;
+}

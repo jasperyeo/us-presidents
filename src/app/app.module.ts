@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { UsPresidentsGalleryViewerModule } from './components/us-presidents-gallery-viewer/us-presidents-galler-viewer.module';
+import { UsPresidentsGalleryViewerModule } from './components/us-presidents-gallery-viewer/us-presidents-gallery-viewer.module';
 
 @NgModule({
   declarations: [
