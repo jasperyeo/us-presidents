@@ -21,7 +21,11 @@ export class UsPresidentsGalleryViewerComponent {
     });
   }
 
-  private extractContent(s: string): string {
+  private _appendSpace(s: string): string {
+    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ');
+  }
+
+  private _extractContent(s: string): string {
     let span = document.createElement('span');
     span.innerHTML = s;
     return span.textContent || span.innerText;
@@ -35,15 +39,16 @@ export class UsPresidentsGalleryViewerComponent {
       trText.forEach((tr: string, index: number) => {
         const rawText: string = tr;
         let tdText: string[] | null = rawText.match(/<td[\s\S]*?<\/td>/g);
-        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string = '-', election: string = '-';
+        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string = '-', election: string = '-', vicePresident: string = '-';
         if (tdText) {
-          tdText = tdText.map(td => this.extractContent(td));
-          tdText = tdText.filter(td => td && td.length);
+          tdText = tdText.map(td => this._extractContent(td.replace(/\[[\s\S]*?\]/g, '')));
+          tdText = tdText.filter(td => td && td.length).map(td => this._appendSpace(td));
           name = tdText[0].substring(0, tdText[0].indexOf('('));
           birthDeath = tdText[0].substring(tdText[0].indexOf('('), tdText[0].indexOf(')') + 1);
           term = tdText[1];
           party = tdText[2];
           election = tdText[3];
+          vicePresident = tdText[4];
         }
         this.presidents.push({
           rawText: rawText,
@@ -53,7 +58,8 @@ export class UsPresidentsGalleryViewerComponent {
           life: birthDeath,
           term: term,
           party: party,
-          election: election
+          election: election,
+          vicePresident: vicePresident
         });
       });
     }
