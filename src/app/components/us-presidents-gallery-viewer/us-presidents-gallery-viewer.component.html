@@ -1,3 +1,11 @@
 <div class="viewer__container">
-  <list-viewer [data]="presidents"></list-viewer>
-</div> 
+  <list-viewer *ngIf="presidents?.length" [data]="presidents"></list-viewer>
+  <div *ngIf="!presidents?.length" class="viewer__error">
+    <div class="viewer__error--message">
+      <p>Failure fetching list of U.S. presidents from Wikipedia</p>
+    </div>
+    <p class="viewer__error--cta" (click)="refresh()">
+      Click here to refresh
+    </p>
+  </div>
+</div>

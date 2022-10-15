@@ -22,7 +22,7 @@ export class UsPresidentsGalleryViewerComponent {
   }
 
   private _appendSpace(s: string): string {
-    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ');
+    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ').replace(/:/g, ': ');
   }
 
   private _extractContent(s: string): string {
@@ -39,9 +39,15 @@ export class UsPresidentsGalleryViewerComponent {
       trText.forEach((tr: string, index: number) => {
         const rawText: string = tr;
         let tdText: string[] | null = rawText.match(/<td[\s\S]*?<\/td>/g);
-        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string = '-', election: string = '-', vicePresident: string = '-';
+        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string = '-', election: string = '-', vicePresident: string = '-', imagePath: string = '';
         if (tdText) {
-          tdText = tdText.map(td => this._extractContent(td.replace(/\[[\s\S]*?\]/g, '')));
+          tdText = tdText.map(td => {
+            const imagePaths: string[] | null = td.match(/src="[\s\S]*?g"/g);
+            if (imagePaths) {
+              imagePath = imagePaths[0].substring(5, imagePaths[0].length - 1);
+            }
+            return this._extractContent(td.replace(/\[[\s\S]*?\]/g, ''));
+          });
           tdText = tdText.filter(td => td && td.length).map(td => this._appendSpace(td));
           name = tdText[0].substring(0, tdText[0].indexOf('('));
           birthDeath = tdText[0].substring(tdText[0].indexOf('('), tdText[0].indexOf(')') + 1);
@@ -54,6 +60,7 @@ export class UsPresidentsGalleryViewerComponent {
           rawText: rawText,
           textPerCell: tdText,
           sNo: index + 1,
+          imagePath: imagePath,
           name: name,
           life: birthDeath,
           term: term,
@@ -63,5 +70,9 @@ export class UsPresidentsGalleryViewerComponent {
         });
       });
     }
+  }
+
+  public refresh(): void {
+    location.reload();
   }
 }

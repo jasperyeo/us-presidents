@@ -3,6 +3,11 @@
     width: 100vw;
     overflow: auto;
   }
+
+  &__portrait {
+    width: 16rem;
+    height: 19.4rem;
+  }
 }
 
 table {
@@ -29,9 +34,6 @@ table {
 
     &:hover {
       background-color: rgba(36, 36, 36, 0.2);
-      td {
-        text-decoration: underline;
-      }
     }
 
     td {
