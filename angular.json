@@ -103,9 +103,12 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }
-  },
-  "defaultProject": "us-presidents"
+  }
 }
