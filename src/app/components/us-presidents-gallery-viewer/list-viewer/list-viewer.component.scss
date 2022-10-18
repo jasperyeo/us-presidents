@@ -1,3 +1,9 @@
+@import '../../../../styles.scss';
+
+*, *:before, *:after {
+  transition: all .1s ease-in;
+}
+
 .list-viewer {
   &__wrapper {
     width: 100vw;
@@ -10,6 +16,12 @@
     width: 1rem;
     height: 2rem;
     background-color: white;
+
+    @include respond(md) {
+      margin-left: .4rem;
+      height: 1rem;
+      border-radius: 50%;
+    }
 
     &--unaffliated {
       background-color: #DCDCDC;
@@ -36,12 +48,56 @@
       background-color: #B22222;
     }
   }
+
+  &__portrait {
+    width: 16rem;
+
+    &--container {
+      position: relative;
+    }
+
+    &--sno {
+      display: none;
+
+      @include respond(md) {
+        display: block;
+        position: absolute;
+        top: 0px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        width: 1.4rem;
+        height: 1.4rem;
+        text-align: center;
+      }
+    }
+
+    @include respond(md) {
+      width: 8rem;
+    }
+  }
+
+  &__mobile-info {
+    display: none;
+
+    @include respond(md) {
+      display: block;
+    }
+  }
 }
 
 table {
   width: fit-content;
   margin: .8rem auto;
   border-collapse: collapse;
+
+  @include respond(md) {
+    width: 100%;
+
+    thead {
+      display: none;
+    }
+  }
 
   thead tr {
     border: 1px solid white;
@@ -66,11 +122,38 @@ table {
       transform: scale(1.1);
     }
 
+    @include respond(md) {
+      &:hover {
+        transform: scale(1);
+      }
+
+      td:first-child {
+        display: none;
+      }
+
+      td:nth-child(2) {
+        padding-right: 0px;
+      }
+
+      td:nth-child(n + 4) {
+        display: none;
+      }
+    }
+
     td {
       border: none;
       white-space: pre;
       color: white;
       padding: 1.2rem;
+
+      @include respond(md) {
+        font-size: 1.2rem;
+      }
     }
   }
+}
+
+hr {
+  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }

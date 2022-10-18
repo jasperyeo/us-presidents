@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class ListViewerComponent {
 
   @Input('data') public data: any[] = [];
+  @Input('mobileView') public mobileView: boolean = false;
 
   constructor() { }
 
