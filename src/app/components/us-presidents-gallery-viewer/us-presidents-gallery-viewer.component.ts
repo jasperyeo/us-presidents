@@ -9,12 +9,12 @@ import { UsPresidentsGalleryViewerService } from './us-presidents-gallery-viewer
 export class UsPresidentsGalleryViewerComponent {
   public presidents: any[] = [];
   public readonly searchTerm: string = 'list_of_us_presidents';
+  public mobileView: boolean = false;
 
   constructor(private _usPresidentsGalleryViewerService: UsPresidentsGalleryViewerService) {
     this._usPresidentsGalleryViewerService.getWikipediaArticle(this.searchTerm).then((result) => {
       const htmlString: string = result as string;
       this._extract(htmlString);
-      console.log(this.presidents);
     })
     .catch(error => {
       console.error('API failed');
@@ -22,7 +22,7 @@ export class UsPresidentsGalleryViewerComponent {
   }
 
   private _appendSpace(s: string): string {
-    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ').replace(/:/g, ': ');
+    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ').replace(/:/g, ': ').replace(/\n\n/g, '\n');
   }
 
   private _extractContent(s: string): string {

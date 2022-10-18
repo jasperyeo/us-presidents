@@ -1,5 +1,5 @@
 <div class="viewer__container">
-  <list-viewer *ngIf="presidents?.length" [data]="presidents"></list-viewer>
+  <list-viewer *ngIf="presidents?.length" [mobileView]="mobileView" [data]="presidents"></list-viewer>
   <div *ngIf="!presidents?.length" class="viewer__error">
     <div class="viewer__error--message">
       <p>Failure fetching list of U.S. presidents from Wikipedia</p>

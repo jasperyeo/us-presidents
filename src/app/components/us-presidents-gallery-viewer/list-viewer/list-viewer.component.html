@@ -15,15 +15,36 @@
     <tbody>
       <tr *ngFor="let president of data">
         <td>{{ president?.sNo }}</td>
-        <td><img class="list-viewer__portrait" [src]="president?.imagePath"></td>
-        <td>{{ president?.name }}</td>
+        <td>
+          <img class="list-viewer__portrait" [src]="president?.imagePath">
+        </td>
+        <td>
+          {{ president?.name }}
+          <span class="list-viewer__mobile-info">
+            <hr>
+            {{ president?.life }}<br>
+            <hr>
+            {{ president?.term }}<br>
+            <hr>
+            <ng-container *ngFor="let party of president?.party; let i = index">
+              <span class="list-viewer__party" [ngClass]="'list-viewer__party--' + party?.toLowerCase()"></span>{{ party }}
+              <ng-container *ngIf="i !== president?.party?.length - 1">
+                <br>
+              </ng-container>
+            </ng-container><br>
+            <hr>
+            {{ president?.election }}<br>
+            <hr>
+            {{ president?.vicePresident }}
+          </span>
+        </td>
         <td>{{ president?.life }}</td>
         <td>{{ president?.term }}</td>
         <td>
           <ng-container *ngFor="let party of president?.party; let i = index">
             <span class="list-viewer__party" [ngClass]="'list-viewer__party--' + party?.toLowerCase()"></span>{{ party }}
             <ng-container *ngIf="i !== president?.party?.length - 1">
-              <br><br>
+              <br>
             </ng-container>
           </ng-container>
         </td>
