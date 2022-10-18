@@ -52,6 +52,26 @@
   &__portrait {
     width: 16rem;
 
+    &--container {
+      position: relative;
+    }
+
+    &--sno {
+      display: none;
+
+      @include respond(md) {
+        display: block;
+        position: absolute;
+        top: 0px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        width: 1.4rem;
+        height: 1.4rem;
+        text-align: center;
+      }
+    }
+
     @include respond(md) {
       width: 8rem;
     }

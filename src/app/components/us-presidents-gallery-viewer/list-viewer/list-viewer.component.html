@@ -16,7 +16,10 @@
       <tr *ngFor="let president of data">
         <td>{{ president?.sNo }}</td>
         <td>
-          <img class="list-viewer__portrait" [src]="president?.imagePath">
+          <div class="list-viewer__portrait--container">
+            <img class="list-viewer__portrait" [src]="president?.imagePath">
+            <span class="list-viewer__portrait--sno">{{ president?.sNo }}</span>
+          </div>
         </td>
         <td>
           {{ president?.name }}
