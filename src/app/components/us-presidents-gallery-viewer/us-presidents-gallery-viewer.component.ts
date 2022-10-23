@@ -22,7 +22,7 @@ export class UsPresidentsGalleryViewerComponent {
   }
 
   private _appendSpace(s: string): string {
-    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ').replace(/:/g, ': ').replace(/\n\n/g, '\n');
+    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ').replace(/:/g, ': ').replace(/\n\n/g, '\n ');
   }
 
   private _extractContent(s: string): string {
@@ -35,7 +35,6 @@ export class UsPresidentsGalleryViewerComponent {
     let trText: string[] | null = htmlString.match(/<tr>[\s\S]*?<\/tr>/g);
     if (trText) {
       trText.splice(0, 1);
-      console.log(trText);
       trText.forEach((tr: string, index: number) => {
         const rawText: string = tr;
         let tdText: string[] | null = rawText.match(/<td[\s\S]*?<\/td>/g);
