@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy:github-page": "ng deploy --base-href=/us-presidents/"
   },
   "private": true,
   "dependencies": {
