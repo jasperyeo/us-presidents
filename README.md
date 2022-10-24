@@ -1,5 +1,7 @@
 <p align="center">
-  
+  <a href="https://jasperyeo.github.io/us-presidents/" target="_blank" title="U.S. Presidents">
+    <img src="https://jasperyeo.github.io/us-presidents/assets/images/large-image-preview.png" width="50%"/>
+  </a>
 </p>
 <p align="center">
   <a href="https://github.com/JasperYeo/us-presidents" target="_blank" title="Jasper Yeo - us-presidents">
