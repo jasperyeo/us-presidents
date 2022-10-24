@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'us-presidents';
+  public readonly title: string = 'U.S. Presidents | Jasper Yeo';
+
+  constructor(private _title: Title) {
+    this._title.setTitle(this.title);
+  }
 }

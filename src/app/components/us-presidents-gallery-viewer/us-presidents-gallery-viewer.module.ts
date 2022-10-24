@@ -5,11 +5,13 @@ import { FormsModule } from "@angular/forms";
 
 import { UsPresidentsGalleryViewerComponent } from './us-presidents-gallery-viewer.component';
 import { ListViewerComponent } from './list-viewer/list-viewer.component';
+import { IntroDialogComponent } from './intro-dialog/intro-dialog.component';
 
 @NgModule({
   declarations: [
     UsPresidentsGalleryViewerComponent,
-    ListViewerComponent
+    ListViewerComponent,
+    IntroDialogComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { ListViewerComponent } from './list-viewer/list-viewer.component';
   ],
   exports: [
     UsPresidentsGalleryViewerComponent,
-    ListViewerComponent
+    ListViewerComponent,
+    IntroDialogComponent
   ]
 })
 export class UsPresidentsGalleryViewerModule {}
