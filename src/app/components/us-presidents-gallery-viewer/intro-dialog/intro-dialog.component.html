@@ -1,0 +1,36 @@
+<div class="intro-dialog__overlay">
+  <div class="intro-dialog__container">
+    <h1 class="intro-dialog__title">Welcome</h1>
+    <div class="intro-dialog__content">
+      <img class="intro-dialog__preview" src="./assets/images/large-image-preview.png" alt="U.S. Presidents" width="1200" height="630">
+      <br><br>
+      <p>
+        This gallery viewer showcases the list of U.S. presidents.
+      </p>
+      <br><br>
+      <div>
+        <p>Developer: Jasper Yeo, {{ currentYear }}</p>
+        <div class="intro-dialog__icons-container">
+          <a class="intro-dialog__icon-url" href="https://github.com/jasperyeo" target="_blank" title="GitHub" rel="noopener noreferrer">
+            <img class="intro-dialog__icon" src="./assets/images/logo-github.png" alt="GitHub">
+          </a>
+          <a class="intro-dialog__icon-url" href="https://www.linkedin.com/in/yeoenghaijasper" target="_blank" title="LinkedIn" rel="noopener noreferrer">
+            <img class="intro-dialog__icon" src="./assets/images/logo-linkedin.png" alt="LinkedIn">
+          </a>
+        </div>
+      </div>
+      <br><br>
+      <p>
+        Reference: 
+        <a class="intro-dialog__url" href="https://en.wikipedia.org/wiki/List_of_us_presidents" target="_blank" title="List of U.S. Presidents" rel="noopener noreferrer">
+          https://en.wikipedia.org/wiki/List_of_us_presidents
+        </a>
+      </p>
+    </div>
+    <div class="intro-dialog__footer">
+      <button (click)="closeDialog()" title="Close">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
