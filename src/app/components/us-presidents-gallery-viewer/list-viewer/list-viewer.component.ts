@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'list-viewer',
-  templateUrl: './list-viewer.component.html',
-  styleUrls: ['./list-viewer.component.scss']
+    selector: 'list-viewer',
+    templateUrl: './list-viewer.component.html',
+    styleUrls: ['./list-viewer.component.scss'],
+    standalone: false
 })
 export class ListViewerComponent {
 

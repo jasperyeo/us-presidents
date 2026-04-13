@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { UsPresidentsGalleryViewerService } from './us-presidents-gallery-viewer.service';
 
 @Component({
-  selector: 'us-presidents-gallery-viewer',
-  templateUrl: './us-presidents-gallery-viewer.component.html',
-  styleUrls: ['./us-presidents-gallery-viewer.component.scss']
+    selector: 'us-presidents-gallery-viewer',
+    templateUrl: './us-presidents-gallery-viewer.component.html',
+    styleUrls: ['./us-presidents-gallery-viewer.component.scss'],
+    standalone: false
 })
 export class UsPresidentsGalleryViewerComponent {
   public presidents: any[] = [];

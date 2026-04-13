@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'intro-dialog',
-  templateUrl: './intro-dialog.component.html',
-  styleUrls: ['./intro-dialog.component.scss']
+    selector: 'intro-dialog',
+    templateUrl: './intro-dialog.component.html',
+    styleUrls: ['./intro-dialog.component.scss'],
+    standalone: false
 })
 export class IntroDialogComponent implements OnInit {
 
