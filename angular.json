@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "us-presidents:build:production"
+              "buildTarget": "us-presidents:build:production"
             },
             "development": {
-              "browserTarget": "us-presidents:build:development"
+              "buildTarget": "us-presidents:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "us-presidents:build"
+            "buildTarget": "us-presidents:build"
           }
         },
         "test": {
