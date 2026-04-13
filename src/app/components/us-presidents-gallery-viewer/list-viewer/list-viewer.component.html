@@ -13,47 +13,49 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let president of data">
-        <td>{{ president?.sNo }}</td>
-        <td>
-          <div class="list-viewer__portrait--container">
-            <img class="list-viewer__portrait" [src]="president?.imagePath">
-            <span class="list-viewer__portrait--sno">{{ president?.sNo }}</span>
-          </div>
-        </td>
-        <td>
-          {{ president?.name }}
-          <span class="list-viewer__mobile-info">
-            <hr>
-            {{ president?.life }}<br>
-            <hr>
-            {{ president?.term }}<br>
-            <hr>
-            <ng-container *ngFor="let party of president?.party; let i = index">
-              <span class="list-viewer__party" [ngClass]="'list-viewer__party--' + party?.toLowerCase()"></span>{{ party }}
-              <ng-container *ngIf="i !== president?.party?.length - 1">
-                <br>
-              </ng-container>
-            </ng-container><br>
-            <hr>
-            {{ president?.election }}<br>
-            <hr>
-            {{ president?.vicePresident }}
-          </span>
-        </td>
-        <td>{{ president?.life }}</td>
-        <td>{{ president?.term }}</td>
-        <td>
-          <ng-container *ngFor="let party of president?.party; let i = index">
-            <span class="list-viewer__party" [ngClass]="'list-viewer__party--' + party?.toLowerCase()"></span>{{ party }}
-            <ng-container *ngIf="i !== president?.party?.length - 1">
-              <br>
-            </ng-container>
-          </ng-container>
-        </td>
-        <td>{{ president?.election }}</td>
-        <td>{{ president?.vicePresident }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      @for (president of data; track president) {
+        <tr>
+          <td>{{ president?.sNo }}</td>
+          <td>
+            <div class="list-viewer__portrait--container">
+              <img class="list-viewer__portrait" [src]="president?.imagePath">
+              <span class="list-viewer__portrait--sno">{{ president?.sNo }}</span>
+            </div>
+          </td>
+          <td>
+            {{ president?.name }}
+            <span class="list-viewer__mobile-info">
+              <hr>
+                {{ president?.life }}<br>
+                <hr>
+                  {{ president?.term }}<br>
+                  <hr>
+                    @for (party of president?.party; track party; let i = $index) {
+                      <span class="list-viewer__party" [ngClass]="'list-viewer__party--' + party?.toLowerCase()"></span>{{ party }}
+                      @if (i !== president?.party?.length - 1) {
+                        <br>
+                        }
+                        }<br>
+                        <hr>
+                          {{ president?.election }}<br>
+                          <hr>
+                            {{ president?.vicePresident }}
+                          </span>
+                        </td>
+                        <td>{{ president?.life }}</td>
+                        <td>{{ president?.term }}</td>
+                        <td>
+                          @for (party of president?.party; track party; let i = $index) {
+                            <span class="list-viewer__party" [ngClass]="'list-viewer__party--' + party?.toLowerCase()"></span>{{ party }}
+                            @if (i !== president?.party?.length - 1) {
+                              <br>
+                              }
+                            }
+                          </td>
+                          <td>{{ president?.election }}</td>
+                          <td>{{ president?.vicePresident }}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
