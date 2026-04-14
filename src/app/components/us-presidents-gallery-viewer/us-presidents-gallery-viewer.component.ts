@@ -8,68 +8,36 @@ import { UsPresidentsGalleryViewerService } from './us-presidents-gallery-viewer
     standalone: false
 })
 export class UsPresidentsGalleryViewerComponent {
+  public result: any[] = [];
   public presidents: any[] = [];
-  public readonly searchTerm: string = 'list_of_us_presidents';
   public mobileView: boolean = false;
 
   constructor(private _usPresidentsGalleryViewerService: UsPresidentsGalleryViewerService) {
-    this._usPresidentsGalleryViewerService.getWikipediaArticle(this.searchTerm).then((result) => {
-      const htmlString: string = result as string;
-      this._extract(htmlString);
+    this._usPresidentsGalleryViewerService.getWikipediaArticle().then((result) => {
+      this.result = result;
+      this._parseResult();
     })
     .catch(error => {
       console.error('API failed');
     });
   }
 
-  private _appendSpace(s: string): string {
-    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ').replace(/:/g, ': ').replace(/\n\n/g, '\n ');
-  }
-
-  private _extractContent(s: string): string {
-    let span = document.createElement('span');
-    span.innerHTML = s;
-    return span.textContent || span.innerText;
-  };
-
-  private _extract(htmlString: string): void {
-    let trText: string[] | null = htmlString.match(/<tr>[\s\S]*?<\/tr>/g);
-    if (trText) {
-      trText.splice(0, 1);
-      trText.forEach((tr: string, index: number) => {
-        const rawText: string = tr;
-        let tdText: string[] | null = rawText.match(/<td[\s\S]*?<\/td>/g);
-        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string[] = [], election: string = '-', vicePresident: string = '-', imagePath: string = '';
-        if (tdText) {
-          tdText = tdText.map(td => {
-            const imagePaths: string[] | null = td.match(/src="[\s\S]*?g"/g);
-            if (imagePaths) {
-              imagePath = imagePaths[0].substring(5, imagePaths[0].length - 1);
-            }
-            return this._extractContent(td.replace(/\[[\s\S]*?\]/g, ''));
-          });
-          tdText = tdText.filter(td => td && td.length).map(td => this._appendSpace(td));
-          name = tdText[0].substring(0, tdText[0].indexOf('('));
-          birthDeath = tdText[0].substring(tdText[0].indexOf('('), tdText[0].indexOf(')') + 1);
-          term = tdText[1];
-          party = tdText[2].split('\n').filter(party => party && party.length);
-          election = tdText[3];
-          vicePresident = tdText[4];
-        }
-        this.presidents.push({
-          rawText: rawText,
-          textPerCell: tdText,
-          sNo: index + 1,
-          imagePath: imagePath,
-          name: name,
-          life: birthDeath,
-          term: term,
-          party: party,
-          election: election,
-          vicePresident: vicePresident
-        });
+  private _parseResult(): void {
+    // remove the first element of the array which is the table header
+    this.result = this.result[0];
+    this.result.shift();
+    // iterate through the result and push the data to the presidents array
+    this.result.forEach((row: any, index: number) => {
+      this.presidents.push({
+        sNo: row[0],
+        imagePath: row[1],
+        name: row[2],
+        term: row[3],
+        party: [row[5]],
+        election: row[6],
+        vicePresident: row[7]
       });
-    }
+    });
   }
 
   public refresh(): void {

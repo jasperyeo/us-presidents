@@ -1,8 +1,8 @@
 <div class="viewer__container">
-  @if (presidents?.length) {
+  @if (presidents.length) {
     <list-viewer [mobileView]="mobileView" [data]="presidents"></list-viewer>
   }
-  @if (!presidents?.length) {
+  @if (!presidents.length) {
     <div class="viewer__error">
       <div class="viewer__error--message">
         <p>Failure fetching list of U.S. presidents from Wikipedia</p>

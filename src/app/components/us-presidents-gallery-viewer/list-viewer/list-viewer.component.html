@@ -5,7 +5,6 @@
         <th>S/No</th>
         <th>Portrait</th>
         <th>Name</th>
-        <th>Birth - Death</th>
         <th>Term</th>
         <th>Party</th>
         <th>Election</th>
@@ -42,7 +41,6 @@
                             {{ president?.vicePresident }}
                           </span>
                         </td>
-                        <td>{{ president?.life }}</td>
                         <td>{{ president?.term }}</td>
                         <td>
                           @for (party of president?.party; track party; let i = $index) {

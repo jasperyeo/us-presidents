@@ -8,19 +8,8 @@ export class UsPresidentsGalleryViewerService {
   
   constructor(private _httpClient: HttpClient) {}
 
-  getWikipediaSummary(searchTerm: string): Promise<Object> {
-    return this._httpClient.get('https://en.wikipedia.org/api/rest_v1/page/summary/' + searchTerm).toPromise();
-  }
-
-  getWikipediaArticle(searchTerm: string): Promise<Object> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'text/html',
-        'Content-Type': 'application/json'
-      }),
-      responseType: 'text' as 'json'
-    };
-    return this._httpClient.get('https://en.wikipedia.org/api/rest_v1/page/mobile-html/' + searchTerm, httpOptions).toPromise();
+  getWikipediaArticle(): Promise<any[]> {
+    return this._httpClient.get<any[]>('https://www.wikitable2json.com/api/list_of_us_presidents?cleanRef=true').toPromise();
   }
 
   public getJSON(filepath: string): Promise<Object> {
