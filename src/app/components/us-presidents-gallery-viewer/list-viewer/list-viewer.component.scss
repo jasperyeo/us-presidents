@@ -84,6 +84,13 @@
       display: block;
     }
   }
+
+  &__mobile-hidden {
+
+    @include respond(md) {
+      display: none;
+    }
+  }
 }
 
 table {
@@ -96,6 +103,11 @@ table {
 
     thead {
       display: none;
+
+      &.sub-table {
+        display: table-header-group;
+        font-size: 1rem;
+      }
     }
   }
 
@@ -108,23 +120,30 @@ table {
       color: white;
       text-align: left;
       padding: 1.2rem;
+      border: 1px solid white;
+
+      @include respond(md) {
+        padding: 0.4rem;
+      }
     }
   }
 
   tbody tr {
     border: 1px solid white;
-    cursor: pointer;
     background-color: rgba(36, 36, 36, 0.5);
 
-    &:hover {
-      box-shadow: inset 0 0 10px white;
-      background-color: rgba(36, 36, 36, 0.8);
+    &.sub-table td {
+      font-size: 1rem;
     }
 
     @include respond(md) {
 
       td:first-child {
         display: none;
+
+        &.sub-table {
+          display: table-cell;
+        }
       }
 
       td:nth-child(2) {
@@ -137,13 +156,14 @@ table {
     }
 
     td {
-      border: none;
-      white-space: pre;
+      border: 1px solid white;
+      white-space: pre-line;
       color: white;
       padding: 1.2rem;
 
       @include respond(md) {
         font-size: 1.2rem;
+        padding: 0.4rem;
       }
     }
   }
