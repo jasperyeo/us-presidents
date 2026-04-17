@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (president of data; track president) {
+      @for (president of data(); track president) {
         <tr>
           @if (!president?.isCollapsed) {
             <td [rowSpan]="president?.count">

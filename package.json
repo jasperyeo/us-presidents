@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:gh-pages": "ng build --base-href=/us-presidents/"
+    "build:gh-pages": "ng build --base-href /us-presidents/"
   },
   "private": true,
   "dependencies": {

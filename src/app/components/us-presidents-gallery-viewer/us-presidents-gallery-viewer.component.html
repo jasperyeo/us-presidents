@@ -1,8 +1,7 @@
 <div class="viewer__container">
-  @if (presidents.length) {
-    <list-viewer [mobileView]="mobileView" [data]="presidents"></list-viewer>
-  }
-  @if (!presidents.length) {
+  @if (presidents().length) {
+    <list-viewer [data]="presidents()"></list-viewer>
+  } @else {
     <div class="viewer__error">
       <div class="viewer__error--message">
         <p>Loading...</p>
