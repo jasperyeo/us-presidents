@@ -1,74 +1,105 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { combineLatestWith } from 'rxjs';
 import { UsPresidentsGalleryViewerService } from './us-presidents-gallery-viewer.service';
+import { ListViewerComponent } from './list-viewer/list-viewer.component';
 
 @Component({
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ListViewerComponent
+  ],
   selector: 'us-presidents-gallery-viewer',
   templateUrl: './us-presidents-gallery-viewer.component.html',
-  styleUrls: ['./us-presidents-gallery-viewer.component.scss']
+  styleUrls: ['./us-presidents-gallery-viewer.component.scss'],
 })
 export class UsPresidentsGalleryViewerComponent {
-  public presidents: any[] = [];
-  public readonly searchTerm: string = 'list_of_us_presidents';
-  public mobileView: boolean = false;
+  public result: WritableSignal<any[]> = signal<any[]>([]);
+  public media: WritableSignal<any[]> = signal<any[]>([]);
+  public presidents: WritableSignal<any[]> = signal<any[]>([]);
 
   constructor(private _usPresidentsGalleryViewerService: UsPresidentsGalleryViewerService) {
-    this._usPresidentsGalleryViewerService.getWikipediaArticle(this.searchTerm).then((result) => {
-      const htmlString: string = result as string;
-      this._extract(htmlString);
-    })
-    .catch(error => {
-      console.error('API failed');
+    const article$ = this._usPresidentsGalleryViewerService.getWikipediaArticle();
+    const mediaList$ = this._usPresidentsGalleryViewerService.getMediaList();
+
+    mediaList$.pipe(combineLatestWith(article$))
+    .subscribe({
+      next: (result) => {
+        this.media.set(result[0].items);
+        this.result.set(result[1]);
+        this._parseResult();
+      },
+      error: (error) => {
+        console.error('API failed', error);
+      }
     });
   }
 
-  private _appendSpace(s: string): string {
-    return s.replace(/after/g, 'after ').replace(/throughout/g, 'through').replace(/through/g, 'through ').replace(/:/g, ': ').replace(/\n\n/g, '\n ');
-  }
-
-  private _extractContent(s: string): string {
-    let span = document.createElement('span');
-    span.innerHTML = s;
-    return span.textContent || span.innerText;
-  };
-
-  private _extract(htmlString: string): void {
-    let trText: string[] | null = htmlString.match(/<tr>[\s\S]*?<\/tr>/g);
-    if (trText) {
-      trText.splice(0, 1);
-      trText.forEach((tr: string, index: number) => {
-        const rawText: string = tr;
-        let tdText: string[] | null = rawText.match(/<td[\s\S]*?<\/td>/g);
-        let name: string = '-', birthDeath: string = '-', term: string = '-', party: string[] = [], election: string = '-', vicePresident: string = '-', imagePath: string = '';
-        if (tdText) {
-          tdText = tdText.map(td => {
-            const imagePaths: string[] | null = td.match(/src="[\s\S]*?g"/g);
-            if (imagePaths) {
-              imagePath = imagePaths[0].substring(5, imagePaths[0].length - 1);
-            }
-            return this._extractContent(td.replace(/\[[\s\S]*?\]/g, ''));
-          });
-          tdText = tdText.filter(td => td && td.length).map(td => this._appendSpace(td));
-          name = tdText[0].substring(0, tdText[0].indexOf('('));
-          birthDeath = tdText[0].substring(tdText[0].indexOf('('), tdText[0].indexOf(')') + 1);
-          term = tdText[1];
-          party = tdText[2].split('\n').filter(party => party && party.length);
-          election = tdText[3];
-          vicePresident = tdText[4];
-        }
-        this.presidents.push({
-          rawText: rawText,
-          textPerCell: tdText,
-          sNo: index + 1,
-          imagePath: imagePath,
+  private _parseResult(): void {
+    // remove the first element of the array which is the table header
+    this.result.update(result => {
+      result[0].shift();
+      return result[0];
+    });
+    this.media.update(media => {
+      media.shift();
+      return media;
+    });
+    // count unique instances
+    const counts = this.result().map(row => row[0]).reduce((acc: { [key: number]: number }, row) => {
+      acc[row] = (acc[row] || 0) + 1;
+      return acc;
+    }, {});
+    // filter media list to only include images of presidents
+    this.media.update(media => {
+      return media.map(item => 'https://' + (item.srcset[0]?.src as string)?.substring(2));
+    });
+    // iterate through the result and push the data to the presidents array
+    // console.log(this.result());
+    this.result().forEach((row: any, index: number) => {
+      const vicePresident: string = (row[7] as string)
+        .replace('through', 'through ')
+        .replace('through outp', 'throughout p')
+        .replace('after', 'after ')
+        .replace(':', ': ');
+      const name: string = (row[2] as string)
+        .replace('(', '\n(')
+        .replace(')', ')\n');
+      this.presidents.update(presidents => {
+        return [...presidents, {
+          count: counts[row[0]],
+          isCollapsed: index > 0 && row[0] === this.result()[index - 1][0],
+          sNo: row[0],
+          imagePath: this.media()[row[0] - 1],
           name: name,
-          life: birthDeath,
-          term: term,
-          party: party,
-          election: election,
-          vicePresident: vicePresident
-        });
+          term: row[3],
+          party: row[5],
+          election: row[6],
+          vicePresident: vicePresident,
+          parties: [],
+          elections: [],
+          vicePresidents: []
+        }];
       });
-    }
+    });
+    let currentIndex: number = 0;
+    this.presidents().forEach((president: any, index: number) => {
+      if (!president.isCollapsed) {
+        currentIndex = index;
+      }
+      this.presidents.update(presidents => {
+        const updatedPresidents = [...presidents];
+        updatedPresidents[currentIndex].parties.push(president.party);
+        updatedPresidents[currentIndex].elections.push(president.election);
+        updatedPresidents[currentIndex].vicePresidents.push(president.vicePresident);
+        return updatedPresidents;
+      });
+    });
+    // console.log(this.presidents());
   }
 
   public refresh(): void {

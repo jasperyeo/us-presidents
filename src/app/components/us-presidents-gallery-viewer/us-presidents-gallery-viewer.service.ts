@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,22 +9,11 @@ export class UsPresidentsGalleryViewerService {
   
   constructor(private _httpClient: HttpClient) {}
 
-  getWikipediaSummary(searchTerm: string): Promise<Object> {
-    return this._httpClient.get('https://en.wikipedia.org/api/rest_v1/page/summary/' + searchTerm).toPromise();
+  public getWikipediaArticle(): Observable<any[]> {
+    return this._httpClient.get<any[]>('https://www.wikitable2json.com/api/List_of_presidents_of_the_United_States?cleanRef=true');
   }
 
-  getWikipediaArticle(searchTerm: string): Promise<Object> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'text/html',
-        'Content-Type': 'application/json'
-      }),
-      responseType: 'text' as 'json'
-    };
-    return this._httpClient.get('https://en.wikipedia.org/api/rest_v1/page/mobile-html/' + searchTerm, httpOptions).toPromise();
-  }
-
-  public getJSON(filepath: string): Promise<Object> {
-    return this._httpClient.get(filepath).toPromise();
+  public getMediaList(): Observable<any> {
+    return this._httpClient.get('https://en.wikipedia.org/api/rest_v1/page/media-list/List_of_presidents_of_the_United_States');
   }
 }
