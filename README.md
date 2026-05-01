@@ -36,9 +36,11 @@
 
 ## Development Information
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.
 
-Uses [Wikipedia Summary API](https://en.wikipedia.org/api/rest_v1/#/) for fetching list of U.S. presidents and the links to the articles.
+Uses [Wikipedia Table 2 JSON API](https://www.wikitable2json.com) for fetching list of U.S. presidents in JSON format.
+
+Uses [Wikipedia Media List API](https://en.wikipedia.org/api/rest_v1/#/) for fetching images of U.S. presidents.
 
 ## License
 
